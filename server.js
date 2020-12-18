@@ -4,6 +4,7 @@ let request = require("request");
 let querystring = require("querystring");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 let app = express();
 
 let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8888/callback";
@@ -19,6 +20,10 @@ app.get("/login", function (req, res) {
         redirect_uri,
       })
   );
+});
+
+app.get("/test", function (req, res) {
+  res.redirect("https://edtervit.co.uk");
 });
 
 app.get("/callback", function (req, res) {
@@ -55,9 +60,12 @@ console.log(
 
 const url = process.env.DB_URL;
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-mongoose.connect(url);
+mongoose.connect(url, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 
 app.use("/", require("./routes/profileRoute"));
 

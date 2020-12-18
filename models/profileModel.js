@@ -2,7 +2,8 @@ const mongoose = require("mongoose");
 
 const profileSchema = {
   name: String,
-  theList: Object,
+  theList: Array,
+  id: String,
 };
 
 const profile = mongoose.model("profile", profileSchema);
