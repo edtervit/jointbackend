@@ -2,7 +2,8 @@ require("dotenv").config();
 let express = require("express");
 let request = require("request");
 let querystring = require("querystring");
-
+const cors = require("cors");
+const mongoose = require("mongoose");
 let app = express();
 
 let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8888/callback";
@@ -51,4 +52,13 @@ let port = process.env.PORT || 8888;
 console.log(
   `Listening on port ${port}. Go /login to initiate authentication flow.`
 );
+
+const url = process.env.DB_URL;
+app.use(cors());
+app.use(express.json());
+
+mongoose.connect(url);
+
+app.use("/", require("./routes/profileRoute"));
+
 app.listen(port);
