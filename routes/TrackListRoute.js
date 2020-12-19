@@ -11,7 +11,9 @@ router.route("/create").post((req, res) => {
     theList,
     id,
   });
-  newTrackList.save();
+  newTrackList.save((error) => {
+    return error;
+  });
 });
 
 router.route("/getTrackLists/:id").get((req, res) => {
