@@ -67,6 +67,6 @@ mongoose.connect(url, {
   useNewUrlParser: true,
 });
 
-app.use("/", require("./routes/profileRoute"));
+app.use("/", require("./routes/TrackListRoute"));
 
 app.listen(port);

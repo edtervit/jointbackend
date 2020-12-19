@@ -1,26 +1,26 @@
 const express = require("express");
 const router = express.Router();
-const profile = require("../models/profileModel");
+const TrackList = require("../models/TrackListModel");
 
 router.route("/create").post((req, res) => {
   const name = req.body.name;
   const theList = req.body.theList;
   const id = req.body.id;
-  const newProfile = new profile({
+  const newTrackList = new TrackList({
     name,
     theList,
     id,
   });
-  newProfile.save();
+  newTrackList.save();
 });
 
-router.route("/getProfiles/:id").get((req, res) => {
+router.route("/getTrackLists/:id").get((req, res) => {
   const id = req.params.id;
-  profile
-    .find({
-      id: id,
-    })
-    .then((foundProfile) => res.json(foundProfile));
+  TrackList.find({
+    id: id,
+  }).then((foundTrackList) => res.json(foundTrackList));
 });
+
+router.route("/");
 
 module.exports = router;
