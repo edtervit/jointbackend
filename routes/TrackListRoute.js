@@ -8,6 +8,4 @@ router.route("/create").post(createTrackList);
 
 router.route("/getTrackLists/:id").get(getTrackList);
 
-router.route("/");
-
 export default router;
