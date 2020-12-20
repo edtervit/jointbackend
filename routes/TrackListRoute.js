@@ -1,28 +1,13 @@
-const express = require("express");
+import express from "express";
+
 const router = express.Router();
-const TrackList = require("../models/TrackListModel");
 
-router.route("/create").post((req, res) => {
-  const name = req.body.name;
-  const theList = req.body.theList;
-  const id = req.body.id;
-  const newTrackList = new TrackList({
-    name,
-    theList,
-    id,
-  });
-  newTrackList.save((error) => {
-    return error;
-  });
-});
+import { createTrackList, getTrackList } from "../controllers/trackList.js";
 
-router.route("/getTrackLists/:id").get((req, res) => {
-  const id = req.params.id;
-  TrackList.find({
-    id: id,
-  }).then((foundTrackList) => res.json(foundTrackList));
-});
+router.route("/create").post(createTrackList);
+
+router.route("/getTrackLists/:id").get(getTrackList);
 
 router.route("/");
 
-module.exports = router;
+export default router;

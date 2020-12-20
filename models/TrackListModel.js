@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const TrackListSchema = {
+const TrackListSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -13,8 +13,12 @@ const TrackListSchema = {
     type: String,
     required: true,
   },
-};
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
+});
 
 const TrackList = mongoose.model("TrackList", TrackListSchema);
 
-module.exports = TrackList;
+export default TrackList;

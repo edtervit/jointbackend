@@ -1,10 +1,15 @@
-require("dotenv").config();
-let express = require("express");
-let request = require("request");
-let querystring = require("querystring");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+import dotenv from "dotenv";
+dotenv.config();
+
+import express from "express";
+import request from "request";
+import querystring from "querystring";
+import cors from "cors";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
+
+import trackListRoutes from "./routes/TrackListRoute.js";
+
 let app = express();
 
 let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8888/callback";
@@ -66,7 +71,7 @@ mongoose.connect(url, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
-
-app.use("/", require("./routes/TrackListRoute"));
+mongoose.set("useFindAndModify", false);
+app.use("/trackLists", trackListRoutes);
 
 app.listen(port);
