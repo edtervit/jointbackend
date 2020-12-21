@@ -17,13 +17,35 @@ export const createTrackList = async (req, res) => {
   }
 };
 
-export const getTrackList = async (req, res) => {
+export const getTrackLists = async (req, res) => {
   try {
     const id = req.params.id;
     const trackList = await TrackListModel.find({
       id: id,
     });
     res.status(200).json(trackList);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getTrackList = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const trackList = await TrackListModel.find({
+      _id: id,
+    });
+    res.status(200).json(trackList);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const deleteTrackList = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await TrackListModel.findByIdAndRemove(id);
+    res.status(204).json({ message: "Post delete Successfully" });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
