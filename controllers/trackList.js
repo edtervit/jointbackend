@@ -45,7 +45,7 @@ export const deleteTrackList = async (req, res) => {
   try {
     const id = req.params.id;
     await TrackListModel.findByIdAndRemove(id);
-    res.status(204).json({ message: "Post delete Successfully" });
+    res.status(202).json({ message: "Post delete Successfully" });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
