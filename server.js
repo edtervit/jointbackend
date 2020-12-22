@@ -14,7 +14,7 @@ let app = express();
 
 let redirect_uri = process.env.REDIRECT_URI || "http://localhost:8888/callback";
 
-app.get("/login", function (req, res) {
+app.get("/login/:id", function (req, res) {
   res.redirect(
     "https://accounts.spotify.com/authorize?" +
       querystring.stringify({
@@ -23,6 +23,7 @@ app.get("/login", function (req, res) {
         scope:
           "user-read-private user-read-email playlist-modify-public playlist-read-private user-top-read",
         redirect_uri,
+        state: req.params.id,
       })
   );
 });
@@ -33,6 +34,8 @@ app.get("/test", function (req, res) {
 
 app.get("/callback", function (req, res) {
   let code = req.query.code || null;
+  let state = req.query.state;
+
   let authOptions = {
     url: "https://accounts.spotify.com/api/token",
     form: {
@@ -54,7 +57,7 @@ app.get("/callback", function (req, res) {
   request.post(authOptions, function (error, response, body) {
     var access_token = body.access_token;
     let uri = process.env.FRONTEND_URI || "http://localhost:3000";
-    res.redirect(uri + "?access_token=" + access_token);
+    res.redirect(uri + "?access_token=" + access_token + "&state=" + state);
   });
 });
 
