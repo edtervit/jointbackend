@@ -8,9 +8,12 @@ import {
   getYourJointPlaylists,
   getFriendJointPlaylists,
   deleteJointPlaylist,
+  dupeCheck,
 } from "../controllers/jointPlaylist.js";
 
 router.route("/create").post(createJointPlaylist);
+
+router.route("/dupecheck").get(dupeCheck);
 
 router.route("/getYourJointPlaylists/:id").get(getYourJointPlaylists);
 

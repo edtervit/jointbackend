@@ -66,3 +66,18 @@ export const deleteJointPlaylist = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const dupeCheck = async (req, res) => {
+  try {
+    const body = req.body;
+
+    const JointPlaylist = await JointPlaylistModel.find({
+      userFriendID: body.userFriendID,
+      userCreatorID: body.userCreatorID,
+      theList: body.theList,
+    });
+    res.status(200).json(JointPlaylist);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
