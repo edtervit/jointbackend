@@ -13,7 +13,7 @@ import {
 
 router.route("/create").post(createJointPlaylist);
 
-router.route("/dupecheck").get(dupeCheck);
+router.route("/dupecheck").post(dupeCheck);
 
 router.route("/getYourJointPlaylists/:id").get(getYourJointPlaylists);
 

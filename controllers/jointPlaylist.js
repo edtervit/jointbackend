@@ -70,7 +70,6 @@ export const deleteJointPlaylist = async (req, res) => {
 export const dupeCheck = async (req, res) => {
   try {
     const body = req.body;
-
     const JointPlaylist = await JointPlaylistModel.find({
       userFriendID: body.userFriendID,
       userCreatorID: body.userCreatorID,
