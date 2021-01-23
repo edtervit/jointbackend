@@ -22,7 +22,7 @@ app.get("/login/:id", function (req, res) {
         response_type: "code",
         client_id: process.env.SPOTIFY_CLIENT_ID,
         scope:
-          "user-read-private user-read-email playlist-modify-public playlist-read-private user-top-read",
+          "user-read-private user-read-email playlist-modify-public playlist-read-private user-top-read user-library-read",
         redirect_uri,
         state: req.params.id,
       })
