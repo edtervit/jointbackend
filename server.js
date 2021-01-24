@@ -69,7 +69,9 @@ console.log(
 
 const url = process.env.DB_URL;
 app.use(cors());
-app.use(bodyParser.json());
+
+app.use(bodyParser.json({ limit: "3mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "3mb", extended: true }));
 
 mongoose.connect(url, {
   useUnifiedTopology: true,
