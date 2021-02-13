@@ -8,8 +8,10 @@ const ProfileSchema = mongoose.Schema({
   },
   userCustomName: {
     type: String,
-    unique: true,
-    collation: { locale: "en", strength: 2 },
+    index: {
+      unique: true,
+      collation: { locale: "en", strength: 2 },
+    },
   },
 });
 
