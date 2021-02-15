@@ -10,6 +10,8 @@ import bodyParser from "body-parser";
 
 import trackListRoutes from "./routes/TrackListRoute.js";
 import jointPlaylistRoutes from "./routes/JointPlaylistRoute.js";
+import tokenRoutes from "./routes/TokenRoute.js";
+import profileRoutes from "./routes/ProfileRoute.js";
 
 let app = express();
 
@@ -88,5 +90,7 @@ mongoose.connect(url, {
 mongoose.set("useFindAndModify", false);
 app.use("/trackLists", trackListRoutes);
 app.use("/jointPlaylist", jointPlaylistRoutes);
+app.use("/token", tokenRoutes);
+app.use("/profile", profileRoutes);
 
 app.listen(port);
