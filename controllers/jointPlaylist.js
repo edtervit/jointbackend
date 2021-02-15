@@ -1,4 +1,5 @@
 import JointPlaylistModel from "../models/JointPlaylistModel.js";
+import ProfileModel from "../models/ProfileModel.js";
 
 export const createJointPlaylist = async (req, res) => {
   const userCreatorName = req.body.userCreatorName;
@@ -24,9 +25,19 @@ export const createJointPlaylist = async (req, res) => {
 export const getYourJointPlaylists = async (req, res) => {
   try {
     const id = req.params.id;
-    const JointPlaylist = await JointPlaylistModel.find({
+    let JointPlaylist = await JointPlaylistModel.find({
       userCreatorID: id,
     });
+    await Promise.all(
+      JointPlaylist.map(async (e, index) => {
+        const profile = await ProfileModel.find({
+          userProfileID: e.userFriendID,
+        });
+        if (profile[0] && profile[0].userCustomName) {
+          JointPlaylist[index].userFriendName = profile[0].userCustomName;
+        }
+      })
+    );
     res.status(200).json(JointPlaylist);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -39,6 +50,16 @@ export const getFriendJointPlaylists = async (req, res) => {
     const JointPlaylist = await JointPlaylistModel.find({
       userFriendID: id,
     });
+    await Promise.all(
+      JointPlaylist.map(async (e, index) => {
+        const profile = await ProfileModel.find({
+          userProfileID: e.userCreatorID,
+        });
+        if (profile[0] && profile[0].userCustomName) {
+          JointPlaylist[index].userCreatorName = profile[0].userCustomName;
+        }
+      })
+    );
     res.status(200).json(JointPlaylist);
   } catch (error) {
     res.status(404).json({ message: error.message });
