@@ -1,5 +1,5 @@
 import TrackListModel from "../models/TrackListModel.js";
-
+import ProfileModel from "../models/ProfileModel.js";
 export const createTrackList = async (req, res) => {
   const name = req.body.name;
   const theList = req.body.theList;
@@ -33,9 +33,28 @@ export const getTrackList = async (req, res) => {
   try {
     const id = req.params.id;
     const trackList = await TrackListModel.find({
-      _id: id,
+      id: id,
     });
-    res.status(200).json(trackList);
+    if (trackList.length > 0) {
+      res.status(200).json(trackList);
+    } else {
+      // const profile = await ProfileModel.find({
+      //   userCustomName: { $regex: /ed/i },
+      // });
+      const profile = await ProfileModel.find({
+        userCustomName: id,
+      }).collation({ locale: "en", strength: 2 });
+
+      if (profile.length > 0) {
+        const profileID = profile[0].userProfileID;
+        const trackList2 = await TrackListModel.find({
+          id: profileID,
+        });
+        res.status(200).json(trackList2);
+      } else {
+        res.status(404).json({ message: "Can't find tracklist" });
+      }
+    }
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
