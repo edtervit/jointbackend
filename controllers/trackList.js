@@ -9,7 +9,15 @@ export const createTrackList = async (req, res) => {
     theList,
     id,
   });
+
+  const query = { userProfileID: id };
+  const update = {
+    $set: { userProfileID: id, userSpotifyName: name },
+  };
+  const options = { upsert: true, setDefaultsOnInsert: true };
+
   try {
+    const res2 = await ProfileModel.updateOne(query, update, options);
     await newTrackList.save();
     res.status(201).json(newTrackList);
   } catch (error) {
