@@ -58,14 +58,13 @@ export const getTrackList = async (req, res) => {
         const trackList2 = await TrackListModel.find({
           id: profileID,
         });
-        console.log(trackList2);
         if (trackList2.length > 0) {
           //if they have custom name and tracklist send itttttt
           res.status(200).json(trackList2);
         } else {
           //if they have custom name but no tracklist
           res.statusMessage = "Can't find tracklist";
-          res.status(404).end();
+          res.status(404).json(profile[0].userCustomName);
         }
       } else {
         //if they don't have a custom name check for a profile
@@ -76,7 +75,7 @@ export const getTrackList = async (req, res) => {
         if (profile2.length > 0) {
           //if they have profile but no tracklist
           res.statusMessage = "Can't find tracklist";
-          res.status(404).end();
+          res.status(404).json(profile2[0].userSpotifyName);
         } else {
           //if they don't have a profile or tracklist
           res.statusMessage = "Can't find anything";
