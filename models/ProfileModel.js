@@ -6,12 +6,19 @@ const ProfileSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  userSpotifyName: {
+    type: String,
+  },
   userCustomName: {
     type: String,
     index: {
       unique: true,
       collation: { locale: "en", strength: 2 },
     },
+  },
+  userTier: {
+    type: String,
+    default: "free",
   },
 });
 

@@ -8,7 +8,7 @@ export const createProfile = async (req, res) => {
   const update = {
     $set: { userProfileID: userProfileID, userCustomName: userCustomName },
   };
-  const options = { upsert: true };
+  const options = { upsert: true, setDefaultsOnInsert: true };
 
   try {
     const res2 = await ProfileModel.updateOne(query, update, options);

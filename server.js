@@ -31,7 +31,7 @@ app.get("/login/:id", function (req, res) {
   );
 });
 
-app.get("/test", function (req, res) {
+app.get("/photography", function (req, res) {
   res.redirect("https://edtervit.co.uk");
 });
 
