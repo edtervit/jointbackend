@@ -13,6 +13,7 @@ const ProfileSchema = mongoose.Schema({
     type: String,
     index: {
       unique: true,
+      sparse: true,
       collation: { locale: "en", strength: 2 },
     },
   },
